@@ -159,15 +159,15 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
-//#define J_DRIVER_TYPE  A4988
-//#define K_DRIVER_TYPE  A4988
+#define I_DRIVER_TYPE  TMC2209
+#define J_DRIVER_TYPE  TMC2209
+#define K_DRIVER_TYPE  TMC2209
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
-#define E0_DRIVER_TYPE TMC2209
-#define E1_DRIVER_TYPE TMC2209
-#define E2_DRIVER_TYPE TMC2209
+//#define E0_DRIVER_TYPE TMC2209
+//#define E1_DRIVER_TYPE TMC2209
+//#define E2_DRIVER_TYPE TMC2209
 //#define E3_DRIVER_TYPE A4988
 //#define E4_DRIVER_TYPE A4988
 //#define E5_DRIVER_TYPE A4988
@@ -191,6 +191,18 @@
  *
  * Regardless of these settings the axes are internally named I, J, K, U, V, W.
  */
+
+// Define X, Y, Z as rotational axes
+#ifdef X_DRIVER_TYPE
+  #define X_ROTATES
+#endif
+#ifdef Y_DRIVER_TYPE
+  #define Y_ROTATES
+#endif
+#ifdef Z_DRIVER_TYPE
+  #define Z_ROTATES
+#endif
+
 #ifdef I_DRIVER_TYPE
   #define AXIS4_NAME 'A' // :['A', 'B', 'C', 'U', 'V', 'W']
   #define AXIS4_ROTATES
@@ -220,7 +232,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 1
+#define EXTRUDERS 0
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -1232,19 +1244,20 @@
 #define Y_MAX_ENDSTOP_HIT_STATE HIGH
 #define Z_MIN_ENDSTOP_HIT_STATE HIGH
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
+
 #define I_MIN_ENDSTOP_HIT_STATE HIGH
 #define I_MAX_ENDSTOP_HIT_STATE HIGH
 #define J_MIN_ENDSTOP_HIT_STATE HIGH
 #define J_MAX_ENDSTOP_HIT_STATE HIGH
 #define K_MIN_ENDSTOP_HIT_STATE HIGH
-#define K_MAX_ENDSTOP_HIT_STATE HIGH
-#define U_MIN_ENDSTOP_HIT_STATE HIGH
-#define U_MAX_ENDSTOP_HIT_STATE HIGH
-#define V_MIN_ENDSTOP_HIT_STATE HIGH
-#define V_MAX_ENDSTOP_HIT_STATE HIGH
-#define W_MIN_ENDSTOP_HIT_STATE HIGH
-#define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+// #define K_MAX_ENDSTOP_HIT_STATE HIGH
+// #define U_MIN_ENDSTOP_HIT_STATE HIGH
+// #define U_MAX_ENDSTOP_HIT_STATE HIGH
+// #define V_MIN_ENDSTOP_HIT_STATE HIGH
+// #define V_MAX_ENDSTOP_HIT_STATE HIGH
+// #define W_MIN_ENDSTOP_HIT_STATE HIGH
+// #define W_MAX_ENDSTOP_HIT_STATE HIGH
+// #define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1292,7 +1305,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 88.88, 88.88, 88.88, 88.88, 88.88, 88.88 }  // X, Y, Z, I, J, K (steps/degree)
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1304,7 +1317,9 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
+
+// Set default max feedrates for rotational axes (degrees/sec)
+#define DEFAULT_MAX_FEEDRATE          { 50, 50, 50, 50, 50, 50 }  // (degrees/sec) X, Y, Z, I, J, K
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1317,7 +1332,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 1000, 1000, 1000, 1000 }  // (degrees/sec^2) X, Y, Z, I, J, K
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1778,10 +1793,10 @@
 #define X_ENABLE_ON LOW
 #define Y_ENABLE_ON LOW
 #define Z_ENABLE_ON LOW
-#define E_ENABLE_ON LOW // For all extruders
-//#define I_ENABLE_ON LOW
-//#define J_ENABLE_ON LOW
-//#define K_ENABLE_ON LOW
+// #define E_ENABLE_ON LOW // For all extruders
+#define I_ENABLE_ON LOW
+#define J_ENABLE_ON LOW
+#define K_ENABLE_ON LOW
 //#define U_ENABLE_ON LOW
 //#define V_ENABLE_ON LOW
 //#define W_ENABLE_ON LOW
@@ -1812,9 +1827,9 @@
 #define INVERT_X_DIR false
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
-//#define INVERT_I_DIR false
-//#define INVERT_J_DIR false
-//#define INVERT_K_DIR false
+#define INVERT_I_DIR false
+#define INVERT_J_DIR false
+#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
 //#define INVERT_V_DIR false
 //#define INVERT_W_DIR false
@@ -1856,9 +1871,9 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
-//#define I_HOME_DIR -1
-//#define J_HOME_DIR -1
-//#define K_HOME_DIR -1
+#define I_HOME_DIR -1
+#define J_HOME_DIR -1
+#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
 //#define W_HOME_DIR -1
@@ -1885,18 +1900,19 @@
 #define Y_BED_SIZE 200
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
-#define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
-//#define I_MIN_POS 0
-//#define I_MAX_POS 50
-//#define J_MIN_POS 0
-//#define J_MAX_POS 50
-//#define K_MIN_POS 0
-//#define K_MAX_POS 50
+#define X_MIN_POS -180
+#define X_MAX_POS 180
+#define Y_MIN_POS -180
+#define Y_MAX_POS 180
+#define Z_MIN_POS -180
+#define Z_MAX_POS 180
+
+#define I_MIN_POS -180
+#define I_MAX_POS 180
+#define J_MIN_POS -180
+#define J_MAX_POS 180
+#define K_MIN_POS -180
+#define K_MAX_POS 180
 //#define U_MIN_POS 0
 //#define U_MAX_POS 50
 //#define V_MIN_POS 0
@@ -2348,7 +2364,7 @@
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M { (4*60), (4*60), (4*60), (4*60), (4*60), (4*60) }
 
 // Edit homing feedrates with M210 and MarlinUI menu items
 //#define EDITABLE_HOMING_FEEDRATE
@@ -2429,7 +2445,7 @@
  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
-//#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save flash.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
@@ -3691,3 +3707,42 @@
 
 // Disable servo with M282 to reduce power consumption, noise, and heat when not in use
 //#define SERVO_DETACH_GCODE
+
+// Set appropriate travel limits for X, Y, Z as rotational axes (degrees)
+// I, J, K home directions are already defined
+
+// Set appropriate steps per unit for rotational axes (steps per degree)
+// These values will need to be calibrated for your specific setup
+
+
+// // Enable endstops for I, J, K axes
+// #define USE_I_ENABLE
+// #define USE_I_PLUG
+// #define USE_J_ENABLE
+// #define USE_J_PLUG
+// #define USE_K_ENABLE
+// #define USE_K_PLUG
+
+// // Define whether to use min or max endstops for homing
+// // For rotational axes, typically you'll use either min or max, not both
+// #define USE_IMIN_PLUG
+// #define USE_IMAX_PLUG
+// #define USE_JMIN_PLUG
+// #define USE_JMAX_PLUG
+// #define USE_KMIN_PLUG
+// #define USE_KMAX_PLUG
+
+// // Define endstop settings
+// // If your endstops are normally open (NO), set these to false
+// // If your endstops are normally closed (NC), set these to true
+// #define I_MIN_ENDSTOP_INVERTING false
+// #define I_MAX_ENDSTOP_INVERTING false
+// #define J_MIN_ENDSTOP_INVERTING false
+// #define J_MAX_ENDSTOP_INVERTING false
+// #define K_MIN_ENDSTOP_INVERTING false
+// #define K_MAX_ENDSTOP_INVERTING false
+
+// Define homing order
+// For a 6-axis robot, you typically want to home the axes in a specific order
+// This example homes Z first, then Y, then X, then I, J, K
+// #define HOMING_ORDER HOME_ORDER_ZXYIJK
