@@ -578,7 +578,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 0
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -586,7 +586,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 0
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -700,7 +700,7 @@
  * PIDTEMP : PID temperature control (~4.1K)
  * MPCTEMP : Predictive Model temperature control. (~1.8K without auto-tune)
  */
-#define PIDTEMP           // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+// #define PIDTEMP           // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
 //#define MPCTEMP         // See https://marlinfw.org/docs/features/model_predictive_control.html
 
 #define PID_MAX  255      // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
@@ -923,7 +923,7 @@
  *
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
-#define PREVENT_COLD_EXTRUSION
+// #define PREVENT_COLD_EXTRUSION
 #define EXTRUDE_MINTEMP 170
 
 /**
@@ -1250,7 +1250,7 @@
 #define J_MIN_ENDSTOP_HIT_STATE HIGH
 #define J_MAX_ENDSTOP_HIT_STATE HIGH
 #define K_MIN_ENDSTOP_HIT_STATE HIGH
-// #define K_MAX_ENDSTOP_HIT_STATE HIGH
+#define K_MAX_ENDSTOP_HIT_STATE HIGH
 // #define U_MIN_ENDSTOP_HIT_STATE HIGH
 // #define U_MAX_ENDSTOP_HIT_STATE HIGH
 // #define V_MIN_ENDSTOP_HIT_STATE HIGH
@@ -1305,7 +1305,8 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 88.88, 88.88, 88.88, 88.88, 88.88, 88.88 }  // X, Y, Z, I, J, K (steps/degree)
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 88.88, 88.88, 88.88, 88.88, 88.88, 88.88 }  // X, Y, Z, I, J, K (steps/degree) 10:1 geared movement
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 8.89, 8.89, 8.89, 8.89, 8.89, 8.89 }  // X, Y, Z, I, J, K (steps/degree) 1:1 geared movement
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1319,7 +1320,8 @@
  */
 
 // Set default max feedrates for rotational axes (degrees/sec)
-#define DEFAULT_MAX_FEEDRATE          { 50, 50, 50, 50, 50, 50 }  // (degrees/sec) X, Y, Z, I, J, K
+// #define DEFAULT_MAX_FEEDRATE          { 50, 50, 50, 50, 50, 50 }  // (degrees/sec) X, Y, Z, I, J, K
+#define DEFAULT_MAX_FEEDRATE          { 30, 30, 30, 30, 30, 30 }  // (degrees/sec) X, Y, Z, I, J, K
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1332,7 +1334,8 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 1000, 1000, 1000, 1000 }  // (degrees/sec^2) X, Y, Z, I, J, K
+// #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 1000, 1000, 1000, 1000 }  // (degrees/sec^2) X, Y, Z, I, J, K
+#define DEFAULT_MAX_ACCELERATION      { 800, 800, 800, 800, 800, 800 }  // (degrees/sec^2) X, Y, Z, I, J, K
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
