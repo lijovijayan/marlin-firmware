@@ -113,6 +113,71 @@
   #define Z_STOP_PIN                  Z_DIAG_PIN  // Z-STOP
 #endif
 
+
+
+
+// // Endstop pins for I, J, K axes
+// Using available pins on the board - you may need to adjust these based on your wiring
+#define I_DIAG_PIN                         PG12  // Using E0DET pin
+#define J_DIAG_PIN                         PG13  // Using E1DET pin
+#define K_DIAG_PIN                         PG14  // Using E2DET pin
+
+// Endstop configuration for I, J, K axes
+#ifdef I_STALL_SENSITIVITY
+  #define I_STOP_PIN                  I_DIAG_PIN
+  #if I_HOME_TO_MIN
+    #define I_MAX_PIN                PG12  // E0DET
+  #else
+    #define I_MIN_PIN                PG12  // E0DET
+  #endif
+#elif NEEDS_I_MINMAX
+  #ifndef I_MIN_PIN
+    #define I_MIN_PIN                 I_DIAG_PIN
+  #endif
+  #ifndef I_MAX_PIN
+    #define I_MAX_PIN                PG12  // E0DET
+  #endif
+#else
+  #define I_STOP_PIN                  I_DIAG_PIN
+#endif
+
+#ifdef J_STALL_SENSITIVITY
+  #define J_STOP_PIN                  J_DIAG_PIN
+  #if J_HOME_TO_MIN
+    #define J_MAX_PIN                PG13  // E1DET
+  #else
+    #define J_MIN_PIN                PG13  // E1DET
+  #endif
+#elif NEEDS_J_MINMAX
+  #ifndef J_MIN_PIN
+    #define J_MIN_PIN                 J_DIAG_PIN
+  #endif
+  #ifndef J_MAX_PIN
+    #define J_MAX_PIN                PG13  // E1DET
+  #endif
+#else
+  #define J_STOP_PIN                  J_DIAG_PIN
+#endif
+
+#ifdef K_STALL_SENSITIVITY
+  #define K_STOP_PIN                  K_DIAG_PIN
+  #if K_HOME_TO_MIN
+    #define K_MAX_PIN                PG14  // E2DET
+  #else
+    #define K_MIN_PIN                PG14  // E2DET
+  #endif
+#elif NEEDS_K_MINMAX
+  #ifndef K_MIN_PIN
+    #define K_MIN_PIN                 K_DIAG_PIN
+  #endif
+  #ifndef K_MAX_PIN
+    #define K_MAX_PIN                PG14  // E2DET
+  #endif
+#else
+  #define K_STOP_PIN                  K_DIAG_PIN
+#endif
+
+
 //
 // Z Probe (when not Z_MIN_PIN)
 //
@@ -188,26 +253,26 @@
   #define Z2_CS_PIN                         PC7
 #endif
 
-#define E0_STEP_PIN                         PF9   // MOTOR 4
-#define E0_DIR_PIN                          PF10
-#define E0_ENABLE_PIN                       PG2
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN                         PF2
+#define I_STEP_PIN                         PF9   // MOTOR 4
+#define I_DIR_PIN                          PF10
+#define I_ENABLE_PIN                       PG2
+#ifndef I_CS_PIN
+  #define I_CS_PIN                         PF2
 #endif
 
-#define E1_STEP_PIN                         PC13  // MOTOR 5
-#define E1_DIR_PIN                          PF0
-#define E1_ENABLE_PIN                       PF1
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN                         PE4
+#define J_STEP_PIN                         PC13  // MOTOR 5
+#define J_DIR_PIN                          PF0
+#define J_ENABLE_PIN                       PF1
+#ifndef J_CS_PIN
+  #define J_CS_PIN                         PE4
 #endif
 
-#define E2_STEP_PIN                         PE2   // MOTOR 6
-#define E2_DIR_PIN                          PE3
-#define E2_ENABLE_PIN                       PD4
-#ifndef E2_CS_PIN
+#define K_STEP_PIN                         PE2   // MOTOR 6
+#define K_DIR_PIN                          PE3
+#define K_ENABLE_PIN                       PD4
+#ifndef K_CS_PIN
 
-  #define E2_CS_PIN                         PE1
+  #define K_CS_PIN                         PE1
 #endif
 
 #define E3_STEP_PIN                         PE6   // MOTOR 7
@@ -296,9 +361,9 @@
   #define Y_SERIAL_TX_PIN                   PD11
   #define Z_SERIAL_TX_PIN                   PC6
   #define Z2_SERIAL_TX_PIN                  PC7
-  #define E0_SERIAL_TX_PIN                  PF2
-  #define E1_SERIAL_TX_PIN                  PE4
-  #define E2_SERIAL_TX_PIN                  PE1
+  #define I_SERIAL_TX_PIN                  PF2
+  #define J_SERIAL_TX_PIN                  PE4
+  #define K_SERIAL_TX_PIN                  PE1
   #define E3_SERIAL_TX_PIN                  PD3
 
   // Reduce baud rate to improve software serial reliability
