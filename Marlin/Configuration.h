@@ -1909,6 +1909,7 @@
 #define Y_MAX_POS 180
 #define Z_MIN_POS -180
 #define Z_MAX_POS 180
+#define Z_AFTER_HOMING Z_MIN_POS   // (mm) Height to move to after homing (if Z was homed)
 
 #define I_MIN_POS -180
 #define I_MAX_POS 180
