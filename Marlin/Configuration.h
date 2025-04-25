@@ -1350,9 +1350,9 @@
 // #define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 1000, 1000, 1000, 1000 }  // (degrees/sec^2) X, Y, Z, I, J, K
 #define DEFAULT_MAX_ACCELERATION      { 500, 500, 500, 500, 500, 500 }  // (degrees/sec^2) X, Y, Z, I, J, K
 
-//#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
+#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 2000, 2000, 2000, 2000, 2000, 2000 } // ...or, set your own edit limits
 #endif
 
 /**
