@@ -3015,8 +3015,8 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Y)
-    #define Y_CURRENT       800
-    #define Y_CURRENT_HOME  Y_CURRENT - 200
+    #define Y_CURRENT       300
+    #define Y_CURRENT_HOME  Y_CURRENT - 50
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
     #define Y_CHAIN_POS      -1
@@ -3075,8 +3075,8 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(I)
-    #define I_CURRENT      300
-    #define I_CURRENT_HOME I_CURRENT - 100
+    #define I_CURRENT      200
+    #define I_CURRENT_HOME I_CURRENT - 50
     #define I_MICROSTEPS    16
     #define I_RSENSE         0.11
     #define I_CHAIN_POS     -1
@@ -3085,8 +3085,8 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(J)
-    #define J_CURRENT      300
-    #define J_CURRENT_HOME J_CURRENT - 100
+    #define J_CURRENT      200
+    #define J_CURRENT_HOME J_CURRENT - 50
     #define J_MICROSTEPS    16
     #define J_RSENSE         0.11
     #define J_CHAIN_POS     -1
@@ -3095,8 +3095,8 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(K)
-    #define K_CURRENT      300
-    #define K_CURRENT_HOME K_CURRENT - 100
+    #define K_CURRENT      200
+    #define K_CURRENT_HOME K_CURRENT - 50
     #define K_MICROSTEPS    16
     #define K_RSENSE         0.11
     #define K_CHAIN_POS     -1
@@ -3442,26 +3442,22 @@
 
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    // Comment out X, Y, Z to use endstop switches for these axes
-    //#define X_STALL_SENSITIVITY  8
-    //#define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    //#define Y_STALL_SENSITIVITY  8
-    //#define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
-    //#define Z_STALL_SENSITIVITY  8
+    #define X_STALL_SENSITIVITY  8
+    // #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
+    #define Y_STALL_SENSITIVITY  8
+    // #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
+    #define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
-    
-    // Enable sensorless homing for I, J, K axes
     #define I_STALL_SENSITIVITY  8
     #define J_STALL_SENSITIVITY  8
     #define K_STALL_SENSITIVITY  8
-    
     //#define U_STALL_SENSITIVITY  8
     //#define V_STALL_SENSITIVITY  8
     //#define W_STALL_SENSITIVITY  8
     //#define SPI_ENDSTOPS              // TMC2130/TMC5160 only
-    #define IMPROVE_HOMING_RELIABILITY
+    //#define IMPROVE_HOMING_RELIABILITY
   #endif
 
   // @section tmc/config
