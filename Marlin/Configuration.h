@@ -1310,16 +1310,16 @@
  * Gear ratios per axis:
  * X: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
  * Y: Complex reduction:
- *    - Internal geared stepper 5.18:1
- *    - 16T:80T timing belt = 5:1
- *    - Total ratio 25.9:1                    -> 8.89 * 25.9    = 230.22 steps/°
+ *    - 0.35° step motor (1028.57 steps/rev)
+ *    - 16T:80T = 5:1
+ *    - Base steps/° = 1028.57/360 * 5 = 74.0 steps/°
  * Z: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
  * I: 16T:60T timing belt = 3.75:1 ratio     -> 8.89 * 3.75    = 33.33 steps/°
  * J: Direct drive = 1:1 ratio                -> 8.89 * 1       = 8.89 steps/°
  * K: 16T:32T timing belt = 2:1 ratio        -> 8.89 * 2       = 17.78 steps/°
  */
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 230.22, 55.56, 33.33, 8.89, 17.78 }  // X, Y, Z, I, J, K
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 74.0, 55.56, 33.33, 8.89, 17.78 }  // X, Y, Z, I, J, K
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
