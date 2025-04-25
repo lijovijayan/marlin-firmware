@@ -1306,7 +1306,20 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 // #define DEFAULT_AXIS_STEPS_PER_UNIT   { 88.88, 88.88, 88.88, 88.88, 88.88, 88.88 }  // X, Y, Z, I, J, K (steps/degree) 10:1 geared movement
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 8.89, 8.89, 8.89, 8.89, 8.89, 8.89 }  // X, Y, Z, I, J, K (steps/degree) 1:1 geared movement
+/**
+ * Gear ratios per axis:
+ * X: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
+ * Y: Complex reduction:
+ *    - Internal geared stepper 5.18:1
+ *    - 16T:80T timing belt = 5:1
+ *    - Total ratio 25.9:1                    -> 8.89 * 25.9    = 230.22 steps/°
+ * Z: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
+ * I: 16T:60T timing belt = 3.75:1 ratio     -> 8.89 * 3.75    = 33.33 steps/°
+ * J: Direct drive = 1:1 ratio                -> 8.89 * 1       = 8.89 steps/°
+ * K: 16T:32T timing belt = 2:1 ratio        -> 8.89 * 2       = 17.78 steps/°
+ */
+
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 230.22, 55.56, 33.33, 8.89, 17.78 }  // X, Y, Z, I, J, K
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1903,19 +1916,19 @@
 #define Y_BED_SIZE 200
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS -180
+#define X_MIN_POS 0
 #define X_MAX_POS 180
-#define Y_MIN_POS -180
-#define Y_MAX_POS 180
-#define Z_MIN_POS -180
-#define Z_MAX_POS 180
+#define Y_MIN_POS 0
+#define Y_MAX_POS 50
+#define Z_MIN_POS 0
+#define Z_MAX_POS 70
 
-#define I_MIN_POS -180
-#define I_MAX_POS 180
-#define J_MIN_POS -180
-#define J_MAX_POS 180
-#define K_MIN_POS -180
-#define K_MAX_POS 180
+#define I_MIN_POS 0
+#define I_MAX_POS 300
+#define J_MIN_POS 0
+#define J_MAX_POS 300
+#define K_MIN_POS 0
+#define K_MAX_POS 300
 //#define U_MIN_POS 0
 //#define U_MAX_POS 50
 //#define V_MIN_POS 0
