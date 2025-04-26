@@ -2993,6 +2993,8 @@
    * Override for each driver with <driver>_INTERPOLATE settings below
    */
   #define INTERPOLATE      true
+  
+  #define ALLOW_HIGHER_CURRENT_HOME
 
   #if AXIS_IS_TMC_CONFIG(X)
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
@@ -3026,7 +3028,7 @@
 
   #if AXIS_IS_TMC_CONFIG(Y2)
     #define Y2_CURRENT      Y_CURRENT
-    #define Y2_CURRENT_HOME Y_CURRENT_HOME - 200
+    #define Y2_CURRENT_HOME Y_CURRENT_HOME
     #define Y2_MICROSTEPS   Y_MICROSTEPS
     #define Y2_RSENSE       Y_RSENSE
     #define Y2_CHAIN_POS     -1
@@ -3066,7 +3068,7 @@
 
   #if AXIS_IS_TMC_CONFIG(Z4)
     #define Z4_CURRENT      Z_CURRENT
-    #define Z4_CURRENT_HOME Z_CURRENT_HOME - 100
+    #define Z4_CURRENT_HOME Z_CURRENT_HOME
     #define Z4_MICROSTEPS   Z_MICROSTEPS
     #define Z4_RSENSE       Z_RSENSE
     #define Z4_CHAIN_POS     -1
@@ -3075,8 +3077,8 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(I)
-    #define I_CURRENT      200
-    #define I_CURRENT_HOME I_CURRENT - 50
+    #define I_CURRENT      180
+    #define I_CURRENT_HOME 300
     #define I_MICROSTEPS    16
     #define I_RSENSE         0.11
     #define I_CHAIN_POS     -1
@@ -3086,7 +3088,7 @@
 
   #if AXIS_IS_TMC_CONFIG(J)
     #define J_CURRENT      200
-    #define J_CURRENT_HOME J_CURRENT - 50
+    #define J_CURRENT_HOME 300
     #define J_MICROSTEPS    16
     #define J_RSENSE         0.11
     #define J_CHAIN_POS     -1
@@ -3096,7 +3098,7 @@
 
   #if AXIS_IS_TMC_CONFIG(K)
     #define K_CURRENT      200
-    #define K_CURRENT_HOME K_CURRENT - 50
+    #define K_CURRENT_HOME 300
     #define K_MICROSTEPS    16
     #define K_RSENSE         0.11
     #define K_CHAIN_POS     -1
@@ -3106,7 +3108,7 @@
 
   #if AXIS_IS_TMC_CONFIG(U)
     #define U_CURRENT      800
-    #define U_CURRENT_HOME U_CURRENT - 100
+    #define U_CURRENT_HOME U_CURRENT
     #define U_MICROSTEPS     8
     #define U_RSENSE         0.11
     #define U_CHAIN_POS     -1
@@ -3116,7 +3118,7 @@
 
   #if AXIS_IS_TMC_CONFIG(V)
     #define V_CURRENT      800
-    #define V_CURRENT_HOME V_CURRENT - 100
+    #define V_CURRENT_HOME V_CURRENT
     #define V_MICROSTEPS     8
     #define V_RSENSE         0.11
     #define V_CHAIN_POS     -1
@@ -3126,7 +3128,7 @@
 
   #if AXIS_IS_TMC_CONFIG(W)
     #define W_CURRENT      800
-    #define W_CURRENT_HOME W_CURRENT - 100
+    #define W_CURRENT_HOME W_CURRENT
     #define W_MICROSTEPS     8
     #define W_RSENSE         0.11
     #define W_CHAIN_POS     -1
@@ -3442,11 +3444,11 @@
 
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY  8
+    // #define X_STALL_SENSITIVITY  8
     // #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  8
+    // #define Y_STALL_SENSITIVITY  8
     // #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
-    #define Z_STALL_SENSITIVITY  8
+    // #define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z4_STALL_SENSITIVITY Z_STALL_SENSITIVITY
