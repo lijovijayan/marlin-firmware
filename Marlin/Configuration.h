@@ -1301,25 +1301,28 @@
 //#define DISTINCT_E_FACTORS
 
 /**
- * Default Axis Steps Per Unit (linear=steps/mm, rotational=steps/°)
- * Override with M92 (when enabled below)
- *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
- */
-// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 88.88, 88.88, 88.88, 88.88, 88.88, 88.88 }  // X, Y, Z, I, J, K (steps/degree) 10:1 geared movement
-/**
+ * Default Axis Steps Per Unit (steps/°)
+ * 
+ * Base calculations:
+ * - Standard NEMA17 with 1.8° step = 200 steps/rev
+ * - NEMA14 I-axis with 1.8° step = 200 steps/rev
+ * - NEMA14 J-axis with 0.9° step = 400 steps/rev
+ * - NEMA11 K-axis with 1.8° step = 200 steps/rev
+ * - 16x microstepping = 3200 steps/rev (1.8° motors) or 6400 steps/rev (0.9° motor)
+ * 
  * Gear ratios per axis:
  * X: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
  * Y: Complex reduction:
- *    - 0.35° step motor (1028.57 steps/rev)
- *    - 16T:80T = 5:1
- *    - Base steps/° = 1028.57/360 * 5 = 74.0 steps/°
+ *    - Internal geared stepper 5.18:1
+ *    - 16T:80T timing belt = 5:1
+ *    - Total ratio 25.9:1                   -> 8.89 * 25.9    = 230.22 steps/°
  * Z: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
- * I: 16T:60T timing belt = 3.75:1 ratio     -> 8.89 * 3.75    = 33.33 steps/°
- * J: Direct drive = 1:1 ratio                -> 8.89 * 1       = 8.89 steps/°
- * K: 16T:32T timing belt = 2:1 ratio        -> 8.89 * 2       = 17.78 steps/°
+ * I: NEMA14 with 16T:60T = 3.75:1 ratio     -> 8.89 * 3.75    = 33.33 steps/°
+ * J: NEMA14 0.9° with 16T:32T = 2:1 ratio   -> 17.78 * 2      = 35.56 steps/°
+ * K: NEMA8 1.8° direct drive = 1:1 ratio    -> 8.89 * 1       = 8.89 steps/°
  */
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 74.0, 55.56, 33.33, 8.89, 17.78 }  // X, Y, Z, I, J, K
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 230.22, 55.56, 33.33, 35.56, 8.89 }  // X, Y, Z, I, J, K (steps/degree)
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1917,11 +1920,11 @@
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
-#define X_MAX_POS 180
+#define X_MAX_POS 260
 #define Y_MIN_POS 0
-#define Y_MAX_POS 50
+#define Y_MAX_POS 80
 #define Z_MIN_POS 0
-#define Z_MAX_POS 70
+#define Z_MAX_POS 120
 
 #define I_MIN_POS 0
 #define I_MAX_POS 300
@@ -3762,3 +3765,25 @@
 // For a 6-axis robot, you typically want to home the axes in a specific order
 // This example homes Z first, then Y, then X, then I, J, K
 // #define HOMING_ORDER HOME_ORDER_ZXYIJK
+
+/**
+ * Default Axis Steps Per Unit (steps/°)
+ * 
+ * Base calculations:
+ * - Standard NEMA17 with 1.8° step = 200 steps/rev
+ * - NEMA14 I-axis with 1.8° step = 200 steps/rev
+ * - NEMA14 J-axis with 0.9° step = 400 steps/rev
+ * - 16x microstepping = 3200 steps/rev (1.8° motors) or 6400 steps/rev (0.9° motor)
+ * 
+ * Gear ratios per axis:
+ * X: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
+ * Y: Special geared motor:
+ *    - 0.35° step motor (1028.57 steps/rev)
+ *    - 16T:80T timing belt = 5:1
+ *    - Base steps/° = 1028.57/360 * 5 = 14.285 steps/°
+ * Z: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
+ * I: NEMA14 with 16T:60T = 3.75:1 ratio     -> 8.89 * 3.75    = 33.33 steps/°
+ * J: NEMA14 0.9° with 16T:32T = 2:1 ratio   -> 17.78 * 2      = 35.56 steps/°
+ * K: NEMA14 0.9° direct drive = 1:1 ratio   -> 17.78 * 1      = 17.78 steps/°
+ */
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 14.285, 55.56, 33.33, 35.56, 17.78 }  // X, Y, Z, I, J, K (steps/degree)
