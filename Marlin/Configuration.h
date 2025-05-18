@@ -1847,7 +1847,7 @@
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
 #define INVERT_I_DIR false
-#define INVERT_J_DIR false
+#define INVERT_J_DIR true
 #define INVERT_K_DIR false
 //#define INVERT_U_DIR false
 //#define INVERT_V_DIR false
@@ -1927,11 +1927,11 @@
 #define Z_MAX_POS 102.5
 
 #define I_MIN_POS 0
-#define I_MAX_POS 300
+#define I_MAX_POS 180
 #define J_MIN_POS 0
-#define J_MAX_POS 300
+#define J_MAX_POS 180
 #define K_MIN_POS 0
-#define K_MAX_POS 300
+#define K_MAX_POS 180
 //#define U_MIN_POS 0
 //#define U_MAX_POS 50
 //#define V_MIN_POS 0
@@ -3724,7 +3724,7 @@
 // (ms) Delay before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
 // If the servo can't reach the requested position, increase it.
-#define SERVO_DELAY { 300, 300 }
+#define SERVO_DELAY { 10, 10 }
 
 // Only power servos during movement, otherwise leave off to prevent jitter
 //#define DEACTIVATE_SERVOS_AFTER_MOVE
