@@ -1924,7 +1924,7 @@
 #define Y_MIN_POS 0
 #define Y_MAX_POS 80
 #define Z_MIN_POS 0
-#define Z_MAX_POS 120
+#define Z_MAX_POS 102.5
 
 #define I_MIN_POS 0
 #define I_MAX_POS 300
@@ -3711,18 +3711,26 @@
  * Set this manually if there are extra servos needing manual control.
  * Set to 0 to turn off servo support.
  */
-//#define NUM_SERVOS 3 // Note: Servo index starts with 0 for M280-M282 commands
+#define NUM_SERVOS 2 // Note: Servo index starts with 0 for M280-M282 commands
+#define SERVO0_PIN PB6
+#define SERVO1_PIN PB7
+
+// Configure servo angles (optional)
+#define SERVO0_MIN_ANGLE 0
+#define SERVO0_MAX_ANGLE 180
+#define SERVO1_MIN_ANGLE 0
+#define SERVO1_MAX_ANGLE 180
 
 // (ms) Delay before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
 // If the servo can't reach the requested position, increase it.
-#define SERVO_DELAY { 300 }
+#define SERVO_DELAY { 300, 300 }
 
 // Only power servos during movement, otherwise leave off to prevent jitter
 //#define DEACTIVATE_SERVOS_AFTER_MOVE
 
 // Edit servo angles with M281 and save to EEPROM with M500
-//#define EDITABLE_SERVO_ANGLES
+#define EDITABLE_SERVO_ANGLES
 
 // Disable servo with M282 to reduce power consumption, noise, and heat when not in use
 //#define SERVO_DETACH_GCODE
@@ -3765,25 +3773,3 @@
 // For a 6-axis robot, you typically want to home the axes in a specific order
 // This example homes Z first, then Y, then X, then I, J, K
 // #define HOMING_ORDER HOME_ORDER_ZXYIJK
-
-/**
- * Default Axis Steps Per Unit (steps/°)
- * 
- * Base calculations:
- * - Standard NEMA17 with 1.8° step = 200 steps/rev
- * - NEMA14 I-axis with 1.8° step = 200 steps/rev
- * - NEMA14 J-axis with 0.9° step = 400 steps/rev
- * - 16x microstepping = 3200 steps/rev (1.8° motors) or 6400 steps/rev (0.9° motor)
- * 
- * Gear ratios per axis:
- * X: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
- * Y: Special geared motor:
- *    - 0.35° step motor (1028.57 steps/rev)
- *    - 16T:80T timing belt = 5:1
- *    - Base steps/° = 1028.57/360 * 5 = 14.285 steps/°
- * Z: 16T:100T timing belt = 6.25:1 ratio    -> 8.89 * 6.25    = 55.56 steps/°
- * I: NEMA14 with 16T:60T = 3.75:1 ratio     -> 8.89 * 3.75    = 33.33 steps/°
- * J: NEMA14 0.9° with 16T:32T = 2:1 ratio   -> 17.78 * 2      = 35.56 steps/°
- * K: NEMA14 0.9° direct drive = 1:1 ratio   -> 17.78 * 1      = 17.78 steps/°
- */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 55.56, 14.285, 55.56, 33.33, 35.56, 17.78 }  // X, Y, Z, I, J, K (steps/degree)
